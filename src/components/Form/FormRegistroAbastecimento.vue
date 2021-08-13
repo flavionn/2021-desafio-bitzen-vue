@@ -14,15 +14,9 @@ formulate-form(
 		validation="required"
 		)
 
-	formulate-input(
-		type="hidden"
-		name="motoristaId"
-		v-model="motoristaId"
-		)
-
 	div(
 		v-show="isOpen"
-		class="fixed bg-white py-0 border"
+		class="fixed bg-white py-0 border w-100"
 		)
 		ul
 			li(
@@ -30,6 +24,13 @@ formulate-form(
 				@click="popularInput(item.id, item.nome)"
 				class="p-4 cursor-pointer hover:(bg-gray-50)"
 				) {{ item.nome }}
+
+	formulate-input(
+		type="hidden"
+		name="motoristaId"
+		v-model="motoristaId"
+		)
+
 
 	formulate-input(
 		type="hidden"
@@ -95,11 +96,14 @@ export default {
 			}
 		},
 		procurarMotorista(data, event) {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas?search=' + data
+			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas?nome=' + data
 
-			this.$http.get(api).then((response) => {
-				this.motoristas = response.data
-			})
+			setTimeout(() => {
+				this.$http.get(api).then((response) => {
+					this.motoristas = response.data
+				})
+			}, 300)
+
 
 			this.isOpen = true
 		},
