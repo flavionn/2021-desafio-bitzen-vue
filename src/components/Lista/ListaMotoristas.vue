@@ -36,7 +36,7 @@ export default {
 				const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + id
 
 				this.$http.delete(api).then((response) => {
-					console.log(response)
+					this.$router.go(0)
 				})
 			}
 		}

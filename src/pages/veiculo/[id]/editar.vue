@@ -1,7 +1,7 @@
 <template lang="pug">
 
 page-container
-	navback
+	botao-voltar
 	page-title Editar veículo
 	form-editar-veiculo
 

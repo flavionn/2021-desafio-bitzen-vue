@@ -76,7 +76,7 @@ export default {
 			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos'
 
 			this.$http.post(api, data).then((response) => {
-				console.log(response)
+				this.$router.push({ name: 'veiculo' })
 			})
 		}
 	}

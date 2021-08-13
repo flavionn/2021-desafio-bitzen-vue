@@ -92,7 +92,7 @@ export default {
 			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + this.id
 
 			this.$http.put(api, data).then((response) => {
-				console.log(response)
+				this.$router.push({ name: 'motorista' })
 			})
 		}
 	}

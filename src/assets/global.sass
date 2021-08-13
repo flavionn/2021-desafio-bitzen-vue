@@ -1,47 +1,8 @@
+@import 'form'
+@import 'formulate'
+
 body
 	font-family: 'Inter', sans-serif
 
 h3
 	@apply text-xl
-
-input, select, textarea
-	@apply border
-	@apply border-gray-200
-	@apply outline-none
-	@apply px-4
-	@apply py-3
-	@apply rounded-md
-	@apply text-md
-	@apply w-full
-	@apply h-12
-	@apply focus:border-gray-400
-
-select
-	@apply bg-white
-
-button
-	@apply bg-gray-100
-	@apply cursor-pointer
-	@apply font-medium
-	@apply py-4
-	@apply rounded-3xl
-	@apply text-center
-	@apply w-full
-	@apply focus:outline-none
-
-.formulate-form
-	@apply space-y-6
-
-.formulate-input
-	@apply space-y-1
-
-.formulate-input-wrapper
-	@apply space-y-1
-
-.formulate-input-help
-	@apply text-xs
-	@apply text-gray-400
-
-.formulate-input-errors
-	@apply text-xs
-	@apply text-red-600

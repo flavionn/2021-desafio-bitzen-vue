@@ -1,7 +1,7 @@
 <template lang="pug">
 
 thead
-	tr(class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border border-gray-200")
+	tr(class="text-sm font-semibold tracking-wider text-left text-gray-900 bg-blue-gray-100 uppercase")
 		slot
 
 </template>

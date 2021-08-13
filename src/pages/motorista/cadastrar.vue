@@ -1,7 +1,7 @@
 <template lang="pug">
 
 page-container
-	navback
+	botao-voltar
 	page-title Cadastrar motorista
 	form-cadastro-motorista
 
