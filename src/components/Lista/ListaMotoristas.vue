@@ -1,26 +1,17 @@
 <template lang="pug">
 
 div
-	div(v-if="!items.length")
-		div Carregando
-	div(v-else)
-		div(class="overflow-x-auto")
-			table(class="w-full")
-				thead
-					tr(class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600")
-						th(class="px-4 py-3") Nome
-						th(class="px-4 py-3") CPF
-						th(class="px-4 py-3")
-						th(class="px-4 py-3")
-				tbody(class="bg-white")
-					template(v-for="item in items")
-						tr(class="text-gray-700 text-sm")
-							td(class="px-4 py-3 border") {{ item.nome }}
-							td(class="px-4 py-3 border") {{ item.cpf }}
-							td(class="px-4 py-3 border")
-								router-link(:to="{ name: 'motorista-id-editar', params: { id: item.id } }") Editar
-							td(class="px-4 py-3 border")
-								div(@click="excluir(item.id)", class="cursor-pointer") Excluir
+	loading-message(v-if="!items.length")
+	tabela-container(v-else)
+		tabela-head
+			tabela-cel Nome
+			tabela-cel
+			tabela-cel
+		tabela-body
+			tr(v-for="item in items")
+				tabela-cel {{ item.nome }}
+				tabela-cel-editar(:to="{ name: 'motorista-id-editar', params: { id: item.id } }")
+				tabela-cel-excluir(@click.native="excluir(item.id)")
 
 </template>
 

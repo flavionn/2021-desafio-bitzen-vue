@@ -1,33 +1,22 @@
 <template lang="pug">
 
 div
-	div(v-if="!items.length")
-		div Carregando
-	div(v-else)
-		div(class="overflow-x-auto")
-			table(class="w-full")
-				thead
-					tr(class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600")
-						th(class="px-4 py-3") Placa
-						th(class="px-4 py-3") Marca
-						th(class="px-4 py-3") Fabricante
-						th(class="px-4 py-3") Ano de fabricação
-						th(class="px-4 py-3")
-						th(class="px-4 py-3")
-						th(class="px-4 py-3")
-				tbody(class="bg-white")
-					template(v-for="item in items")
-						tr(class="text-gray-700 text-sm")
-							td(class="px-4 py-3 border") {{ item.placa }}
-							td(class="px-4 py-3 border") {{ item.marca }}
-							td(class="px-4 py-3 border") {{ item.fabricante }}
-							td(class="px-4 py-3 border") {{ item.ano_de_fabricacao }}
-							td(class="px-4 py-3 border")
-								router-link(:to="{ name: 'veiculo-id-editar', params: { id: item.id } }") Editar
-							td(class="px-4 py-3 border")
-								div(@click="excluir(item.id)", class="cursor-pointer") Excluir
-							td(class="px-4 py-3 border")
-								router-link(:to="{ name: 'veiculo-id-abastecimento', params: { id: item.id } }") Registrar abastecimento
+	loading-message(v-if="!items.length")
+	tabela-container(v-else)
+		tabela-head
+			tabela-cel Placa
+			tabela-cel Marca
+			tabela-cel
+			tabela-cel
+			tabela-cel
+		tabela-body
+			tr(v-for="item in items")
+				tabela-cel {{ item.placa }}
+				tabela-cel {{ item.marca }}
+				tabela-cel(class="hover:(text-green-500 cursor-pointer) w-30")
+					router-link(:to="{ name: 'veiculo-id-abastecimento', params: { id: item.id } }") Registrar abastecimento
+				tabela-cel-editar(:to="{ name: 'veiculo-id-editar', params: { id: item.id } }")
+				tabela-cel-excluir(@click.native="excluir(item.id)")
 
 </template>
 

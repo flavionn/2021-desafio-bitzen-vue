@@ -1,8 +1,8 @@
 <template lang="pug">
 
-div(class="space-y-16")
+page-container
 	navback
-	h2 Cadastrar motorista
+	page-title Cadastrar motorista
 	form-cadastro-motorista
 
 </template>

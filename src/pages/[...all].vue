@@ -1,6 +1,6 @@
 <template lang="pug">
 
-div
-	div Not Found
+page-container
+	page-title Not Found
 
 </template>

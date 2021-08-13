@@ -1,8 +1,8 @@
 <template lang="pug">
 
-div(class="space-y-12")
-	h2 Lista de abastecimentos
-	div(class="space-y-6")
+page-container
+	page-title Lista de abastecimentos
+	div(class="space-y-4")
 		filtros
 		lista-abastecimentos
 
