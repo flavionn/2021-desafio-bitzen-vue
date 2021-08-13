@@ -1,8 +1,14 @@
 <template lang="pug">
 
-page-container
-	botao-voltar
-	page-title Cadastrar veículo
+div
 	form-cadastro-veiculo
 
 </template>
+
+<route lang="yaml">
+
+meta:
+  layout: formulario
+  titulo: Cadastrar veículo
+
+</route>

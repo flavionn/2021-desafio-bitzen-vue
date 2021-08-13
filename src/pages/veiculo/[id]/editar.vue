@@ -1,8 +1,14 @@
 <template lang="pug">
 
-page-container
-	botao-voltar
-	page-title Editar veículo
+div
 	form-editar-veiculo
 
 </template>
+
+<route lang="yaml">
+
+meta:
+  layout: formulario
+  titulo: Editar veículo
+
+</route>
