@@ -4,6 +4,7 @@
 - Vite
 - File based routing
 - Component auto importing
+- Layout system
 - Windi CSS
 - Vue Formulate
 
