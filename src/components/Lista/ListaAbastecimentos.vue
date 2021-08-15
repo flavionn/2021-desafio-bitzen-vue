@@ -1,7 +1,20 @@
 <template lang="pug">
 
 div
-	filtro-abastecimento(@atualizar="listaAbastecimentos")
+	div(class="flex space-x-2 mb-4")
+		formulate-input(
+			class="flex-1"
+			placeholder="Motorista"
+			type="text"
+			v-model="filtraMotorista"
+			)
+
+		formulate-input(
+			class="flex-1"
+			placeholder="Veículo"
+			type="text"
+			v-model="filtraVeiculo"
+			)
 
 	loading-message(v-if="!items.length")
 	tabela-container(v-else)
@@ -10,10 +23,10 @@ div
 			tabela-cel Veículo
 			tabela-cel Data
 		tabela-body
-			tr(v-for="item in items")
+			tr(v-for="item in itemsFiltrados")
 				tabela-cel {{ item.motorista }}
 				tabela-cel {{ item.veiculo }}
-				tabela-cel {{ item.data }}
+				tabela-cel {{ formatarData(item.data) }}
 
 </template>
 
@@ -22,19 +35,47 @@ div
 export default {
 	data() {
 		return {
-			items: []
+			items: [],
+			filtraMotorista: '',
+			filtraVeiculo: ''
 		}
 	},
 	mounted() {
-		const api = 'https://6113e54acba40600170c1ce3.mockapi.io/abastecimentos'
+		this.carregarAbastecimentos()
+	},
+	computed: {
+		itemsFiltrados() {
+			let tempItems = this.items
 
-		this.$http.get(api).then((response) => {
-			this.items = response.data
-		})
+			if(this.filtraMotorista != '' && this.filtraMotorista) {
+				tempItems = tempItems.filter((item) => {
+					return item.motorista.toLowerCase().includes(this.filtraMotorista.toLowerCase())
+				})
+			}
+
+			if(this.filtraVeiculo != '' && this.filtraVeiculo) {
+				tempItems = tempItems.filter((item) => {
+					return item.veiculo.toLowerCase().includes(this.filtraVeiculo.toLowerCase())
+				})
+			}
+
+			return tempItems
+		}
 	},
 	methods: {
-		listaAbastecimentos(data) {
-			this.items = data
+		async carregarAbastecimentos() {
+			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/abastecimentos?sortBy=data&order=desc'
+
+			this.items = await this.$http.get(api).then((response) => {
+				return response.data
+			})
+		},
+		formatarData(valor) {
+			return new Date(valor).toLocaleDateString('pt-BR', {
+				year: 'numeric',
+				month: '2-digit',
+				day: '2-digit'
+			})
 		}
 	}
 }

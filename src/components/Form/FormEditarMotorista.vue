@@ -1,14 +1,13 @@
 <template lang="pug">
 
 div
-	div(v-if="!Object.keys(values).length")
-		div Carregando
+	loading-message(v-if="!Object.keys(values).length")
 	div(v-else)
 		formulate-form(
 			v-model="values"
 			:form-errors="formErrors"
-			@submit="editarMotorista"
 			:schema="schema"
+			@submit="editarMotorista"
 			)
 			formulate-errors
 
@@ -81,13 +80,21 @@ export default {
 		}
 	},
 	mounted() {
-		const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + this.id
-
-		this.$http.get(api).then((response) => {
-			this.values = response.data
-		})
+		this.carregarMotorista()
 	},
 	methods: {
+		formatarData(dado) {
+			return new Date(dado).toISOString().split('T')[0]
+		},
+		async carregarMotorista() {
+			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + this.id
+
+			this.values = await this.$http.get(api).then((response) => {
+				return response.data
+			})
+
+			this.values.data_de_nascimento = this.formatarData(this.values.data_de_nascimento)
+		},
 		editarMotorista(data) {
 			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + this.id
 

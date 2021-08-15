@@ -75,6 +75,9 @@ export default {
 	},
 	methods: {
 		cadastrarMotorista(data) {
+			const dataFormatada = Date.parse(data.data_de_nascimento)
+			data['data_de_nascimento'] = dataFormatada
+
 			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas'
 
 			this.$http.post(api, data).then((response) => {

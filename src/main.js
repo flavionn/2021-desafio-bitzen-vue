@@ -3,14 +3,14 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueFormulate from '@braid/vue-formulate'
-import { dateFilter } from "vue-date-fns"
 
 import 'virtual:windi.css'
 import './assets/global.sass'
 
 Vue.prototype.$http = axios
-Vue.use(VueFormulate)
-Vue.filter("date", dateFilter)
+Vue.use(VueFormulate, {
+	useInputDecorators: false
+})
 
 new Vue({
 	router,

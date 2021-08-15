@@ -1,14 +1,13 @@
 <template lang="pug">
 
 div
-	div(v-if="!Object.keys(values).length")
-		div Carregando
+	loading-message(v-if="!Object.keys(values).length")
 	div(v-else)
 		formulate-form(
 			v-model="values"
 			:form-errors="formErrors"
-			@submit="editarVeiculo"
 			:schema="schema"
+			@submit="editarVeiculo"
 			)
 			formulate-errors
 
@@ -43,7 +42,7 @@ export default {
 				},
 				{
 					label: 'Ano de fabricação',
-					type: 'text',
+					type: 'number',
 					name: 'ano_de_fabricacao',
 					validation: 'required'
 				},
@@ -79,13 +78,24 @@ export default {
 		}
 	},
 	mounted() {
-		const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos/' + this.id
-
-		this.$http.get(api).then((response) => {
-			this.values = response.data
-		})
+		this.carregarVeiculo()
 	},
 	methods: {
+		checaDadoMockApi(dado) {
+			if(dado.toString().length > 4) {
+				return Math.floor(Math.random() * (2021 - 1950 + 1)) + 1950
+			}
+			return dado
+		},
+		async carregarVeiculo() {
+			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos/' + this.id
+
+			this.values = await this.$http.get(api).then((response) => {
+				return response.data
+			})
+
+			this.values.ano_de_fabricacao = this.checaDadoMockApi(this.values.ano_de_fabricacao)
+		},
 		editarVeiculo(data) {
 			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos/' + this.id
 

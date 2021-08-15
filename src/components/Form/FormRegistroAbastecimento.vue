@@ -113,6 +113,9 @@ export default {
 			this.isOpen = false
 		},
 		registrarAbastecimento(data) {
+			const dataFormatada = Date.parse(data.data)
+			data['data'] = dataFormatada
+
 			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/abastecimentos'
 
 			this.$http.post(api, data).then((response) => {
