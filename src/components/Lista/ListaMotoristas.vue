@@ -1,14 +1,20 @@
 <template lang="pug">
 
 div
-	loading-message(v-if="!items.length")
-	tabela-container(v-else)
+	tabela-container
 		tabela-head
 			tabela-cel Nome
 			tabela-cel
 			tabela-cel
 		tabela-body
-			tr(v-for="item in items")
+			tabela-carregando(
+				v-if="!items.length"
+				colunas="3"
+				)
+			tr(
+				v-else
+				v-for="item in items"
+				)
 				tabela-cel {{ item.nome }}
 				tabela-cel-editar(:to="{ name: 'motorista-id-editar', params: { id: item.id } }")
 				tabela-cel-excluir(@click.native="excluir(item.id)")

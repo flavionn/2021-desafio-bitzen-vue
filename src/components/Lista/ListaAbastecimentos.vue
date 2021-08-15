@@ -16,17 +16,26 @@ div
 			v-model="filtraVeiculo"
 			)
 
-	loading-message(v-if="!items.length")
-	tabela-container(v-else)
+	tabela-container
 		tabela-head
 			tabela-cel Motorista
 			tabela-cel Veículo
 			tabela-cel Data
 		tabela-body
-			tr(v-for="item in itemsFiltrados")
-				tabela-cel {{ item.motorista }}
-				tabela-cel {{ item.veiculo }}
-				tabela-cel {{ formatarData(item.data) }}
+			tabela-carregando(
+				v-if="!items.length"
+				colunas="3"
+				)
+			template(v-else)
+				tr(v-if="!itemsFiltrados.length")
+					tabela-cel(colspan="3") Nenhum item encontrado
+				tr(
+					v-else
+					v-for="item in itemsFiltrados"
+					)
+					tabela-cel {{ item.motorista }}
+					tabela-cel {{ item.veiculo }}
+					tabela-cel {{ formatarData(item.data) }}
 
 </template>
 

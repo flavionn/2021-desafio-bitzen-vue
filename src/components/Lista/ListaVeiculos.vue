@@ -1,8 +1,7 @@
 <template lang="pug">
 
 div
-	loading-message(v-if="!items.length")
-	tabela-container(v-else)
+	tabela-container
 		tabela-head
 			tabela-cel Placa
 			tabela-cel Marca
@@ -10,7 +9,14 @@ div
 			tabela-cel
 			tabela-cel
 		tabela-body
-			tr(v-for="item in items")
+			tabela-carregando(
+				v-if="!items.length"
+				colunas="5"
+				)
+			tr(
+				v-else
+				v-for="item in items"
+				)
 				tabela-cel {{ item.placa }}
 				tabela-cel {{ item.marca }}
 				tabela-cel(class="hover:(text-green-500 cursor-pointer) w-40")
