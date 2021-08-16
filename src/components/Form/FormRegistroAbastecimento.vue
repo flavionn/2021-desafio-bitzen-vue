@@ -7,7 +7,8 @@ formulate-form(
 	formulate-input(
 		label="Motorista"
 		type="text"
-		v-model="procuraMotorista"
+		name="motorista"
+		v-model="motorista"
 		validation="required"
 		)
 
@@ -75,7 +76,6 @@ formulate-form(
 export default {
 	data() {
 		return {
-			procuraMotorista: '',
 			motorista: '',
 			motoristaId: '',
 			motoristas: [],
@@ -97,10 +97,10 @@ export default {
 		itemsFiltrados() {
 			let tempItems = this.listaMotoristas
 
-			if(this.procuraMotorista != '' && this.procuraMotorista) {
+			if(this.motorista != '' && this.motorista) {
 				this.isOpen = true
 				tempItems = tempItems.filter((item) => {
-					return item.nome.toLowerCase().includes(this.procuraMotorista.toLowerCase())
+					return item.nome.toLowerCase().includes(this.motorista.toLowerCase())
 				})
 			}
 
@@ -114,7 +114,7 @@ export default {
 			}
 		},
 		popularInput(id, nome) {
-			this.procuraMotorista = nome
+			this.motorista = nome
 			this.motoristaId = id
 			this.isOpen = false
 		},
