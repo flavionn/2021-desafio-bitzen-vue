@@ -9,3 +9,10 @@ page-container
 	lista-motoristas
 
 </template>
+
+<route lang="yaml">
+
+meta:
+  requerAutenticacao: true
+
+</route>

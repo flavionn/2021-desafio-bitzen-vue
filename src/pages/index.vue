@@ -7,3 +7,10 @@ page-container
 	lista-abastecimentos
 
 </template>
+
+<route lang="yaml">
+
+meta:
+  requerAutenticacao: true
+
+</route>

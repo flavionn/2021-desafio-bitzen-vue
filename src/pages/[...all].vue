@@ -1,6 +1,6 @@
 <template lang="pug">
 
 page-container
-	page-title Not Found
+	page-title Página não encontrada
 
 </template>

@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import api from '../../api/veiculo'
 
 Vue.use(VueAxios, axios)
-
-const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos/'
 
 const state = {
 	todos: [],

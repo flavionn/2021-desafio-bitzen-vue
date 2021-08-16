@@ -10,5 +10,6 @@ div
 meta:
   layout: formulario
   titulo: Cadastrar motorista
+  requerAutenticacao: true
 
 </route>

@@ -11,5 +11,6 @@ div
 meta:
   layout: formulario
   titulo: Registrar abastecimento
+  requerAutenticacao: true
 
 </route>

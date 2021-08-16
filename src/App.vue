@@ -2,6 +2,5 @@
 
 app-container
 	router-view
-	app-nav-bottom
 
 </template>

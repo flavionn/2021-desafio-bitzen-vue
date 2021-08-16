@@ -10,5 +10,6 @@ div
 meta:
   layout: formulario
   titulo: Editar veículo
+  requerAutenticacao: true
 
 </route>

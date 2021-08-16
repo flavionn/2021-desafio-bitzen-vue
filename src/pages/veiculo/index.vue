@@ -9,3 +9,10 @@ page-container
 	lista-veiculos
 
 </template>
+
+<route lang="yaml">
+
+meta:
+  requerAutenticacao: true
+
+</route>

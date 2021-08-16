@@ -2,8 +2,8 @@
 
 formulate-form(
 	:form-errors="formErrors"
-	@submit=""
 	:schema="schema"
+	@submit="logar"
 	)
 	formulate-errors
 
@@ -20,12 +20,14 @@ export default {
 					label: 'E-mail',
 					type: 'email',
 					name: 'email',
+					help: 'E-mail: teste@teste.com',
 					validation: 'required|email'
 				},
 				{
 					label: 'Senha',
 					type: 'password',
 					name: 'password',
+					help: 'Senha: 123456',
 					validation: 'required:trim|min:6,length'
 				},
 				{
@@ -33,6 +35,12 @@ export default {
 					type: 'submit'
 				}
 			]
+		}
+	},
+	methods: {
+		async logar(data) {
+			await this.$store.dispatch('logarUsuario', data)
+			.then(() => this.$router.replace(this.$route.query.redirect || '/'))
 		}
 	}
 }
