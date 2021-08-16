@@ -1,10 +1,42 @@
-const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/'
-
 const usuarios = [
 	{
-		'usuario_id': 1,
-		'usuario_nome': 'Teste da Silva',
+		email: 'teste@teste.com',
+		password: '123456'
+	},
+	{
+		email: 'flavio@teste.com',
+		password: '140203'
 	}
 ]
+export default {
+	transacaoLogar(dados) {
+		return new Promise((resolve, reject) => {
 
-export default api
+			let filteredUsers = usuarios.filter(usuario => {
+				return usuario.email === dados.email && usuario.password === dados.password
+			})
+
+			if(filteredUsers.length) {
+				let usuario = filteredUsers[0]
+
+				let responseJson = {
+					email: usuario.email,
+					password: usuario.password,
+					token: 'algum-dado-token'
+				}
+
+				resolve(
+					{
+						ok: true,
+						text: responseJson
+					}
+				)
+			}
+			else {
+				reject('Email ou senha incorretos')
+			}
+
+			return
+		})
+	}
+}
