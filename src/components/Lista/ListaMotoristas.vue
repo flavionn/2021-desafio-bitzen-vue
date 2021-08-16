@@ -24,26 +24,18 @@ div
 <script>
 
 export default {
-	data() {
-		return {
-			items: []
+	mounted() {
+		this.$store.dispatch('carregarMotoristas')
+	},
+	computed: {
+		items() {
+			return this.$store.state.motorista.todos
 		}
 	},
-	mounted() {
-		const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas'
-
-		this.$http.get(api).then((response) => {
-			this.items = response.data
-		})
-	},
 	methods: {
-		excluir(id) {
+		async excluir(id) {
 			if(confirm('Deseja realmente excluir?')) {
-				const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + id
-
-				this.$http.delete(api).then((response) => {
-					this.$router.go(0)
-				})
+				await this.$store.dispatch('excluirMotorista', id)
 			}
 		}
 	}

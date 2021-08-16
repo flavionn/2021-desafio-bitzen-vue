@@ -1,6 +1,7 @@
 <template lang="pug">
 
 div
+	card-veiculo
 	form-registro-abastecimento
 
 </template>

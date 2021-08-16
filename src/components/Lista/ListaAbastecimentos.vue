@@ -44,15 +44,17 @@ div
 export default {
 	data() {
 		return {
-			items: [],
 			filtraMotorista: '',
 			filtraVeiculo: ''
 		}
 	},
 	mounted() {
-		this.carregarAbastecimentos()
+		this.$store.dispatch('carregarAbastecimentos')
 	},
 	computed: {
+		items() {
+			return this.$store.state.abastecimento.todos
+		},
 		itemsFiltrados() {
 			let tempItems = this.items
 
@@ -72,13 +74,6 @@ export default {
 		}
 	},
 	methods: {
-		async carregarAbastecimentos() {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/abastecimentos?sortBy=data&order=desc'
-
-			this.items = await this.$http.get(api).then((response) => {
-				return response.data
-			})
-		},
 		formatarData(valor) {
 			return new Date(valor).toLocaleDateString('pt-BR', {
 				year: 'numeric',

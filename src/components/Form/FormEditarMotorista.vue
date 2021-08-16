@@ -4,12 +4,10 @@ div
 	loading-message(v-if="!Object.keys(values).length")
 	div(v-else)
 		formulate-form(
-			v-model="values"
-			:form-errors="formErrors"
 			:schema="schema"
-			@submit="editarMotorista"
+			@submit="editar"
+			v-model="values"
 			)
-			formulate-errors
 
 </template>
 
@@ -18,9 +16,7 @@ div
 export default {
 	data() {
 		return {
-			id: this.$route.params.id,
 			values: {},
-			formErrors: [],
 			schema: [
 				{
 					label: 'Nome',
@@ -80,27 +76,17 @@ export default {
 		}
 	},
 	mounted() {
-		this.carregarMotorista()
+		this.$store.dispatch('carregarMotorista', this.$route.params.id)
+		.then((response) => {
+			this.values = this.$store.state.motorista.temp
+		})
 	},
 	methods: {
-		formatarData(dado) {
-			return new Date(dado).toISOString().split('T')[0]
-		},
-		async carregarMotorista() {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + this.id
+		async editar(data) {
+			data['data_de_nascimento'] = Date.parse(data.data_de_nascimento)
 
-			this.values = await this.$http.get(api).then((response) => {
-				return response.data
-			})
-
-			this.values.data_de_nascimento = this.formatarData(this.values.data_de_nascimento)
-		},
-		editarMotorista(data) {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas/' + this.id
-
-			this.$http.put(api, data).then((response) => {
-				this.$router.push({ name: 'motorista' })
-			})
+			await this.$store.dispatch('editarMotorista', data)
+			.then(() => this.$router.push({ name: 'motorista' }))
 		}
 	}
 }

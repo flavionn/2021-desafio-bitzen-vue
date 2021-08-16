@@ -1,11 +1,9 @@
 <template lang="pug">
 
 formulate-form(
-	:form-errors="formErrors"
-	@submit="cadastrarMotorista"
 	:schema="schema"
+	@submit="cadastrar"
 	)
-	formulate-errors
 
 </template>
 
@@ -14,7 +12,6 @@ formulate-form(
 export default {
 	data() {
 		return {
-			formErrors: [],
 			schema: [
 				{
 					label: 'Nome',
@@ -74,15 +71,11 @@ export default {
 		}
 	},
 	methods: {
-		cadastrarMotorista(data) {
-			const dataFormatada = Date.parse(data.data_de_nascimento)
-			data['data_de_nascimento'] = dataFormatada
+		async cadastrar(data) {
+			data['data_de_nascimento'] = Date.parse(data.data_de_nascimento)
 
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas'
-
-			this.$http.post(api, data).then((response) => {
-				this.$router.push({ name: 'motorista' })
-			})
+			await this.$store.dispatch('cadastrarMotorista', data)
+			.then(() => this.$router.push({ name: 'motorista' }))
 		}
 	}
 }

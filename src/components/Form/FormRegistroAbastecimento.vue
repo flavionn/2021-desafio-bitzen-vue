@@ -1,16 +1,13 @@
 <template lang="pug">
 
 formulate-form(
-	:form-errors="formErrors"
-	@submit="registrarAbastecimento"
+	@submit="registrar"
 	)
 
 	formulate-input(
 		label="Motorista"
 		type="text"
-		name="motorista"
-		v-model="motorista"
-		@input="procurarMotorista"
+		v-model="procuraMotorista"
 		validation="required"
 		)
 
@@ -20,7 +17,12 @@ formulate-form(
 		)
 		ul
 			li(
-				v-for="item in motoristas"
+				v-if="!itemsFiltrados.length"
+				class="p-4"
+				) Nenhum encontrado
+			li(
+				v-else
+				v-for="item in itemsFiltrados"
 				@click="popularInput(item.id, item.nome)"
 				class="p-4 cursor-pointer hover:(bg-gray-50)"
 				) {{ item.nome }}
@@ -66,9 +68,6 @@ formulate-form(
 		type="submit"
 		)
 
-	formulate-errors
-
-
 </template>
 
 <script>
@@ -76,7 +75,7 @@ formulate-form(
 export default {
 	data() {
 		return {
-			formErrors: [],
+			procuraMotorista: '',
 			motorista: '',
 			motoristaId: '',
 			motoristas: [],
@@ -85,9 +84,28 @@ export default {
 	},
 	mounted(data) {
 		document.addEventListener('click', this.handleClickOutside)
+
+		this.$store.dispatch('carregarMotoristas')
 	},
 	destroyed() {
 		document.removeEventListener('click', this.handleClickOutside)
+	},
+	computed: {
+		listaMotoristas() {
+			return this.$store.state.motorista.todos
+		},
+		itemsFiltrados() {
+			let tempItems = this.listaMotoristas
+
+			if(this.procuraMotorista != '' && this.procuraMotorista) {
+				this.isOpen = true
+				tempItems = tempItems.filter((item) => {
+					return item.nome.toLowerCase().includes(this.procuraMotorista.toLowerCase())
+				})
+			}
+
+			return tempItems
+		}
 	},
 	methods: {
 		handleClickOutside(event) {
@@ -95,32 +113,16 @@ export default {
 				this.isOpen = false
 			}
 		},
-		procurarMotorista(data, event) {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/motoristas?nome=' + data
-
-			setTimeout(() => {
-				this.$http.get(api).then((response) => {
-					this.motoristas = response.data
-				})
-			}, 300)
-
-
-			this.isOpen = true
-		},
 		popularInput(id, nome) {
-			this.motorista = nome
+			this.procuraMotorista = nome
 			this.motoristaId = id
 			this.isOpen = false
 		},
-		registrarAbastecimento(data) {
-			const dataFormatada = Date.parse(data.data)
-			data['data'] = dataFormatada
+		async registrar(data) {
+			data['data'] = Date.parse(data.data)
 
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/abastecimentos'
-
-			this.$http.post(api, data).then((response) => {
-				this.$router.push({ name: 'veiculo' })
-			})
+			await this.$store.dispatch('registrarAbastecimento', data)
+			.then(() => this.$router.push({ name: 'veiculo' }))
 		}
 	}
 }

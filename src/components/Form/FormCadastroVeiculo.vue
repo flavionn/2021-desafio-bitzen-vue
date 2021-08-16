@@ -1,11 +1,9 @@
 <template lang="pug">
 
 formulate-form(
-	:form-errors="formErrors"
-	@submit="cadastrarVeiculo"
 	:schema="schema"
+	@submit="cadastrar"
 	)
-	formulate-errors
 
 </template>
 
@@ -14,7 +12,6 @@ formulate-form(
 export default {
 	data() {
 		return {
-			formErrors: [],
 			schema: [
 				{
 					label: 'Placa',
@@ -36,7 +33,7 @@ export default {
 				},
 				{
 					label: 'Ano de fabricação',
-					type: 'text',
+					type: 'number',
 					name: 'ano_de_fabricacao',
 					validation: 'required'
 				},
@@ -72,12 +69,9 @@ export default {
 		}
 	},
 	methods: {
-		cadastrarVeiculo(data) {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos'
-
-			this.$http.post(api, data).then((response) => {
-				this.$router.push({ name: 'veiculo' })
-			})
+		async cadastrar(data) {
+			await this.$store.dispatch('cadastrarVeiculo', data)
+			.then(() => this.$router.push({ name: 'veiculo' }))
 		}
 	}
 }

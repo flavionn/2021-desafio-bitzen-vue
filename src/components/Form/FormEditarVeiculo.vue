@@ -4,12 +4,10 @@ div
 	loading-message(v-if="!Object.keys(values).length")
 	div(v-else)
 		formulate-form(
-			v-model="values"
-			:form-errors="formErrors"
 			:schema="schema"
-			@submit="editarVeiculo"
+			@submit="editar"
+			v-model="values"
 			)
-			formulate-errors
 
 </template>
 
@@ -18,9 +16,7 @@ div
 export default {
 	data() {
 		return {
-			id: this.$route.params.id,
 			values: {},
-			formErrors: [],
 			schema: [
 				{
 					label: 'Placa',
@@ -78,30 +74,15 @@ export default {
 		}
 	},
 	mounted() {
-		this.carregarVeiculo()
+		this.$store.dispatch('carregarVeiculo', this.$route.params.id)
+		.then((response) => {
+			this.values = this.$store.state.veiculo.temp
+		})
 	},
 	methods: {
-		checaDadoMockApi(dado) {
-			if(dado.toString().length > 4) {
-				return Math.floor(Math.random() * (2021 - 1950 + 1)) + 1950
-			}
-			return dado
-		},
-		async carregarVeiculo() {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos/' + this.id
-
-			this.values = await this.$http.get(api).then((response) => {
-				return response.data
-			})
-
-			this.values.ano_de_fabricacao = this.checaDadoMockApi(this.values.ano_de_fabricacao)
-		},
-		editarVeiculo(data) {
-			const api = 'https://6113e54acba40600170c1ce3.mockapi.io/veiculos/' + this.id
-
-			this.$http.put(api, data).then((response) => {
-				this.$router.push({ name: 'veiculo' })
-			})
+		async editar(data) {
+			await this.$store.dispatch('editarVeiculo', data)
+			.then(() => this.$router.push({ name: 'veiculo' }))
 		}
 	}
 }
