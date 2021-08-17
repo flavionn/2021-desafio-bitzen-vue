@@ -10,7 +10,9 @@ const config = defineConfig({
 		createVuePlugin(),
 		Pages(),
 		Layouts(),
-		ViteComponents(),
+		ViteComponents({
+			directoryAsNamespace: true
+		}),
 		WindiCSS()
 	]
 })

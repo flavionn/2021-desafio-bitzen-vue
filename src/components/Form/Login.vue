@@ -39,11 +39,11 @@ export default {
 	},
 	methods: {
 		async logar(data) {
+			this.formErrors = []
+
 			await this.$store.dispatch('logarUsuario', data)
 			.then(() => this.$router.replace(this.$route.query.redirect || '/'))
-			.catch(error => {
-				this.formErrors = [error]
-			})
+			.catch(error => this.formErrors = [error])
 		}
 	}
 }

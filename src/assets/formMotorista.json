@@ -1,0 +1,56 @@
+[
+	{
+		"label":"Nome",
+		"type":"text",
+		"name":"nome",
+		"help":"Informe o nome completo do motorista",
+		"validation":"required"
+	},
+	{
+		"label":"CPF",
+		"type":"text",
+		"name":"cpf",
+		"help":"Digite apenas números",
+		"validation":"required"
+	},
+	{
+		"label":"CNH",
+		"type":"text",
+		"name":"cnh",
+		"help":"Digite apenas números",
+		"validation":"required"
+	},
+	{
+		"label":"Categoria CNH",
+		"type":"checkbox",
+		"name":"categoria_cnh",
+		"options":{
+			"a":"A",
+			"b":"B",
+			"c":"C",
+			"d":"D",
+			"e":"E"
+		},
+		"validation":"required"
+	},
+	{
+		"label":"Data de nascimento",
+		"type":"date",
+		"name":"data_de_nascimento",
+		"validation":"required"
+	},
+	{
+		"label":"Status",
+		"type":"select",
+		"name":"status",
+		"options":{
+			"ativo":"Ativo",
+			"inativo":"Inativo"
+		},
+		"validation":"required"
+	},
+	{
+		"label":"Editar motorista",
+		"type":"submit"
+	}
+]

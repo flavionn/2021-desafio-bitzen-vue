@@ -11,7 +11,6 @@ const usuarios = [
 export default {
 	transacaoLogar(dados) {
 		return new Promise((resolve, reject) => {
-
 			let filteredUsers = usuarios.filter(usuario => {
 				return usuario.email === dados.email && usuario.password === dados.password
 			})

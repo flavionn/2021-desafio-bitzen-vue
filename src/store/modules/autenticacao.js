@@ -8,8 +8,7 @@ Vue.use(VueAxios, axios)
 const actions = {
 	async logarUsuario({ commit }, data) {
 		const resultado = await api.transacaoLogar(data)
-		.then((res) => {
-			console.log(res)
+		.then(() => {
 			commit('SET_USUARIO', true, { root: true })
 		})
 	},
