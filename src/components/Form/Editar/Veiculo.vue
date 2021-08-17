@@ -13,7 +13,7 @@ div
 
 <script>
 
-import schema from "../../../assets/json/formVeiculo"
+import schema from "../../../json/formVeiculo"
 
 export default {
 	data() {

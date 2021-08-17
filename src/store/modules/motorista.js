@@ -25,6 +25,10 @@ const actions = {
 		await axios
 		.get(api + id)
 		.then((response) => {
+			/*
+			pega o datime vindo de mockApi e coloca no formato que irá abrir no input Date do formulário
+			remover.
+			*/
 			response.data.data_de_nascimento = new Date(response.data.data_de_nascimento).toISOString().split('T')[0]
 			commit('SET_MOTORISTA', response.data)
 		})

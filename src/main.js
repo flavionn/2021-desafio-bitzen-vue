@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import VueFormulate from '@braid/vue-formulate'
 import 'virtual:windi.css'
-import './assets/global.sass'
+import './styles/global.sass'
 
 Vue.use(VueFormulate, {
 	useInputDecorators: false

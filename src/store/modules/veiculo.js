@@ -25,6 +25,11 @@ const actions = {
 		await axios
 		.get(api + id)
 		.then((response) => {
+			/*
+			caso o número tenha mais de 4 digitos, gera um random entre 1050 e 2021
+			para refazer o número carregado da mockApi.
+			remover.
+			*/
 			response.data.ano_de_fabricacao = (response.data.ano_de_fabricacao.toString().length > 4) ? Math.floor(Math.random() * (2021 - 1950 + 1)) + 1950 : response.data.ano_de_fabricacao
 			commit('SET_VEICULO', response.data)
 		})

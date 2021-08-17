@@ -11,7 +11,7 @@ formulate-form(
 
 <script>
 
-import schema from "../../assets/json/formLogin"
+import schema from "../../json/formLogin"
 
 export default {
 	data() {
