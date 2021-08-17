@@ -11,30 +11,13 @@ formulate-form(
 
 <script>
 
+import schema from "../../assets/json/formLogin"
+
 export default {
 	data() {
 		return {
 			formErrors: [],
-			schema: [
-				{
-					label: 'E-mail',
-					type: 'email',
-					name: 'email',
-					help: 'E-mail: teste@teste.com',
-					validation: 'required|email'
-				},
-				{
-					label: 'Senha',
-					type: 'password',
-					name: 'password',
-					help: 'Senha: 123456',
-					validation: 'required:trim|min:6,length'
-				},
-				{
-					label: 'Entrar',
-					type: 'submit'
-				}
-			]
+			schema
 		}
 	},
 	methods: {
